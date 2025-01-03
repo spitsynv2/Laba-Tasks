@@ -21,7 +21,7 @@ public class Runner {
     public static void main(String[] args) {
         //runThreads();
         //deadLock();
-        //threadPoolTest();
+        threadPoolTest();
     }
 
     public static void runThreads(){

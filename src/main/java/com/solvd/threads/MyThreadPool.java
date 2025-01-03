@@ -4,8 +4,8 @@ import com.solvd.threads.entity.MyThread;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingDeque;
 
 /**
  * @author Vadym Spitsyn
@@ -14,12 +14,12 @@ import java.util.List;
 public class MyThreadPool {
     private static final Logger logger = LogManager.getLogger(MyThread.class);
     private static MyThreadPool instance;
-    private final List<Thread> threads;
+    private final BlockingQueue<Thread> threads;
     private int maxSize = 0;
     private boolean isStopped = false;
 
     private MyThreadPool(int size) {
-        threads = new ArrayList<>(size);
+        threads = new LinkedBlockingDeque<>(size);
         maxSize = size;
     }
 
