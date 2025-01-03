@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <Properties>
+        <Property name="layout" value="%d [%t] %p %c - %m%n"/>
+    </Properties>
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="${layout}"/>
+        </Console>
+        <File name="LogFile" filename="app.log">
+            <PatternLayout pattern="${layout}"/>
+        </File>
+    </Appenders>
+    <Loggers>
+        <Logger name="com.solvd" level="ALL" additivity="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="LogFile"/>
+        </Logger>
+        <Root level="FATAL" additivity="false">
+            <AppenderRef ref="Console"/>
+        </Root>
+    </Loggers>
+</Configuration>
