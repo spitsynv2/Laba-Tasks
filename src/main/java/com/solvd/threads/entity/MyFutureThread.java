@@ -1,4 +1,4 @@
-package com.solvd.threads;
+package com.solvd.threads.entity;
 
 import java.util.concurrent.*;
 
@@ -10,6 +10,6 @@ public class MyFutureThread implements Callable<String> {
 
     @Override
     public String call() throws Exception {
-        return "Running thread with implements Callable (Future): "+ Thread.currentThread().getName();
+        return "Running thread that implements Callable (Future): "+ Thread.currentThread().getName();
     }
 }

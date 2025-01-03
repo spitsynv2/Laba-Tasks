@@ -1,4 +1,4 @@
-package com.solvd.threads;
+package com.solvd.threads.entity;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -12,6 +12,6 @@ public class MyThread extends Thread {
 
     @Override
     public void run() {
-        logger.info("Running thread with extends Thread: {}", Thread.currentThread().getName());
+        logger.info("Running thread that extends Thread: {}", Thread.currentThread().getName());
     }
 }

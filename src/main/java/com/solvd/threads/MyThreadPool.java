@@ -1,5 +1,6 @@
 package com.solvd.threads;
 
+import com.solvd.threads.entity.MyThread;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -31,7 +32,8 @@ public class MyThreadPool {
 
     public void addThread(Thread thread) {
         if (isStopped) {
-            throw new IllegalStateException("ThreadPool is stopped");
+            logger.error("ThreadPool is stopped/stopping");
+            return;
         }
 
         logger.info("Current Thread Pool size: {}/{}", threads.size(), maxSize);
@@ -42,7 +44,6 @@ public class MyThreadPool {
         logger.info("Added: {} to thread pool", thread.getName());
         threads.add(thread);
         thread.start();
-
     }
 
     public void safeStop(){

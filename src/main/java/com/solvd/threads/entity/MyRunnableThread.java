@@ -1,4 +1,4 @@
-package com.solvd.threads;
+package com.solvd.threads.entity;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -12,6 +12,6 @@ public class MyRunnableThread implements Runnable {
 
     @Override
     public void run() {
-        logger.info("Running thread with implements Runnable: {}", Thread.currentThread().getName());
+        logger.info("Running thread that implements Runnable: {}", Thread.currentThread().getName());
     }
 }

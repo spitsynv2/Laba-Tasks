@@ -1,5 +1,8 @@
 package com.solvd.threads;
 
+import com.solvd.threads.entity.MyFutureThread;
+import com.solvd.threads.entity.MyRunnableThread;
+import com.solvd.threads.entity.MyThread;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -18,7 +21,7 @@ public class Runner {
     public static void main(String[] args) {
         //runThreads();
         //deadLock();
-        threadPoolTest();
+        //threadPoolTest();
     }
 
     public static void runThreads(){
