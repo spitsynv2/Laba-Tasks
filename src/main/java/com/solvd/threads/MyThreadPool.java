@@ -36,14 +36,16 @@ public class MyThreadPool {
             return;
         }
 
-        logger.info("Current Thread Pool size: {}/{}", threads.size(), maxSize);
-        while (maxSize==threads.size()){
-            threads.removeIf(x->!x.isAlive());
-        }
+        synchronized (threads){
+            logger.info("Current Thread Pool size: {}/{}", threads.size(), maxSize);
+            while (maxSize==threads.size()){
+                threads.removeIf(x->!x.isAlive());
+            }
 
-        logger.info("Added: {} to thread pool", thread.getName());
-        threads.add(thread);
-        thread.start();
+            logger.info("Added: {} to thread pool", thread.getName());
+            threads.add(thread);
+            thread.start();
+        }
     }
 
     public void safeStop(){

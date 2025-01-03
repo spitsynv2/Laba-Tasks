@@ -90,7 +90,7 @@ public class Runner {
     }
 
     public static void threadPoolTest(){
-        MyThreadPool myThread = MyThreadPool.getInstance(2);
+        MyThreadPool myThreadPool = MyThreadPool.getInstance(2);
 
         Thread thread1 = new Thread(()->{
             logger.info(Thread.currentThread().getName() + " Started work");
@@ -132,9 +132,9 @@ public class Runner {
             logger.info(Thread.currentThread().getName() + " Finished work");
         }, "Thread4");
 
-        myThread.addThread(thread1);
-        myThread.addThread(thread2);
-        myThread.addThread(thread3);
-        myThread.addThread(thread4);
+        myThreadPool.addThread(thread1);
+        myThreadPool.addThread(thread2);
+        myThreadPool.addThread(thread3);
+        myThreadPool.addThread(thread4);
     }
 }
