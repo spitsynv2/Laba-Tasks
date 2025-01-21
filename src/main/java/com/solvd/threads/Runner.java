@@ -6,6 +6,9 @@ import com.solvd.threads.entity.MyThread;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -90,51 +93,82 @@ public class Runner {
     }
 
     public static void threadPoolTest(){
-        MyThreadPool myThreadPool = MyThreadPool.getInstance(2);
+        MyConnectionPool.getInstance();
 
         Thread thread1 = new Thread(()->{
-            logger.info(Thread.currentThread().getName() + " Started work");
             try {
+                Connection connection = MyConnectionPool.getConnection();
+                logger.info("Connection acquired from pool! Thread1");
+
+                Statement stmt = connection.createStatement();
+                stmt.execute("SELECT id from test");
+
                 Thread.sleep(5000);
-            } catch (InterruptedException e) {
+                MyConnectionPool.releaseConnection(connection);
+                logger.info("Connection returned to pool. Thread1");
+            } catch (InterruptedException | SQLException e) {
                 throw new RuntimeException(e);
             }
             logger.info(Thread.currentThread().getName() + " Finished work");
         }, "Thread1");
 
         Thread thread2 = new Thread(()->{
-            logger.info(Thread.currentThread().getName() + " Started work");
             try {
+                Connection connection = MyConnectionPool.getConnection();
+                logger.info("Connection acquired from pool! Thread2");
+
+                Statement stmt = connection.createStatement();
+                stmt.execute("SELECT id from test");
+
                 Thread.sleep(10000);
-            } catch (InterruptedException e) {
+                MyConnectionPool.releaseConnection(connection);
+                logger.info("Connection returned to pool. Thread2");
+            } catch (InterruptedException | SQLException e) {
                 throw new RuntimeException(e);
             }
             logger.info(Thread.currentThread().getName() + " Finished work");
         }, "Thread2");
 
         Thread thread3 = new Thread(()->{
-            logger.info(Thread.currentThread().getName() + " Started work");
             try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
+                Connection connection = MyConnectionPool.getConnection();
+                logger.info("Connection acquired from pool! Thread3");
+
+                Statement stmt = connection.createStatement();
+                stmt.execute("SELECT id from test");
+
+                Thread.sleep(10000);
+                MyConnectionPool.releaseConnection(connection);
+                logger.info("Connection returned to pool. Thread3");
+            } catch (InterruptedException | SQLException e) {
                 throw new RuntimeException(e);
             }
             logger.info(Thread.currentThread().getName() + " Finished work");
         }, "Thread3");
 
         Thread thread4 = new Thread(()->{
-            logger.info(Thread.currentThread().getName() + " Started work");
             try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
+                Connection connection = MyConnectionPool.getConnection();
+                logger.info("Connection acquired from pool! Thread4");
+
+                Statement stmt = connection.createStatement();
+                stmt.execute("SELECT id from test");
+
+                Thread.sleep(5000);
+                MyConnectionPool.releaseConnection(connection);
+
+                logger.info("Connection returned to pool. Thread4");
+            } catch (InterruptedException | SQLException e) {
                 throw new RuntimeException(e);
             }
             logger.info(Thread.currentThread().getName() + " Finished work");
         }, "Thread4");
 
-        myThreadPool.addThread(thread1);
-        myThreadPool.addThread(thread2);
-        myThreadPool.addThread(thread3);
-        myThreadPool.addThread(thread4);
+        ExecutorService executor = Executors.newFixedThreadPool(4);
+
+        executor.execute(thread1);
+        executor.execute(thread2);
+        executor.execute(thread3);
+        executor.execute(thread4);
     }
 }
