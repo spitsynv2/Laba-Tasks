@@ -170,5 +170,7 @@ public class Runner {
         executor.execute(thread2);
         executor.execute(thread3);
         executor.execute(thread4);
+
+        executor.shutdown();
     }
 }
