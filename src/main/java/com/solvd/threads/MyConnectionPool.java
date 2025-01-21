@@ -19,8 +19,8 @@ public class MyConnectionPool {
     private static final String USER = "Admin";
     private static final String PASSWORD = "Admin";
     private static final int SIZE = 3;
-    private static ArrayBlockingQueue<Connection> connections;
-    private static MyConnectionPool instance;
+    private static final MyConnectionPool instance = new MyConnectionPool();
+    private static ArrayBlockingQueue<Connection> connections ;
 
     private MyConnectionPool(){
         try {
@@ -36,9 +36,6 @@ public class MyConnectionPool {
     }
 
     public static MyConnectionPool getInstance() {
-        if (instance == null) {
-            instance = new MyConnectionPool();
-        }
         return instance;
     }
 
