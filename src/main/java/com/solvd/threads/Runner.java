@@ -172,5 +172,14 @@ public class Runner {
         executor.execute(thread4);
 
         executor.shutdown();
+        try {
+            if (!executor.awaitTermination(60, java.util.concurrent.TimeUnit.SECONDS)) {
+                executor.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            executor.shutdownNow();
+        } finally {
+            MyConnectionPool.closeAllConnections();
+        }
     }
 }
